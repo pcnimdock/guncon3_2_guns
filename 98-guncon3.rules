@@ -1,0 +1,5 @@
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0b9a", ATTRS{idProduct}=="0800", \
+    MODE="660", GROUP="plugdev", TAG+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1", \
+    SYMLINK+="guncon3_%n"
+
+KERNEL=="uinput", GROUP="plugdev", MODE:="0660"

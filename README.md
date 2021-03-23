@@ -2,4 +2,4 @@
 # guncon3_2_guns
 Manage 2 guncon3 and create 2 joysiticks on linux userspace
 
-Put 98-guncon3.rules on /etc/udev/rules.d
+Put 98-guncon3.rules on /etc/udev/rules.d and then reboot

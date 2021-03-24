@@ -1,0 +1,13 @@
+usr/include/*/qt5/QtUsb/QUsb*
+usr/include/*/qt5/QtUsb/QtUsb*
+usr/include/*/qt5/QtUsb/QHid*
+usr/include/*/qt5/QtUsb/qusb*.h
+usr/include/*/qt5/QtUsb/qtusb*.h
+usr/include/*/qt5/QtUsb/qhid*.h
+usr/lib/*/cmake/Qt5Usb/Qt5UsbConfig.cmake
+usr/lib/*/cmake/Qt5Usb/Qt5UsbConfigVersion.cmake
+usr/lib/*/libQt5Usb.prl
+usr/lib/*/pkgconfig/Qt5Usb.pc
+usr/lib/*/cmake/Qt5Usb/*
+usr/lib/*/qt5/mkspecs/modules/qt_lib_usb.pri
+usr/share/qt5/doc/qtusb*

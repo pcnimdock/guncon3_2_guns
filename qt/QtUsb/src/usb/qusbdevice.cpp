@@ -319,10 +319,11 @@ void QUsbDevice::handleUsbError(int error_code)
 /*!
     \brief Open the device. Returns \c 0 on success
  */
-qint32 QUsbDevice::open()
+qint32 QUsbDevice::open(quint8 dev_addr)
 {
     DbgPrintFuncName();
     Q_D(QUsbDevice);
+    quint8 daddr=dev_addr;
 
     int rc = -5; // Not found by default
     ssize_t cnt; // holding number of devices in list
@@ -347,6 +348,7 @@ qint32 QUsbDevice::open()
         dev = d->m_devs[i];
         quint8 bus = libusb_get_bus_number(dev);
         quint8 port = libusb_get_port_number(dev);
+        quint8 dev_addr=libusb_get_device_address(dev);
         libusb_device_descriptor desc;
 
         if (libusb_get_device_descriptor(dev, &desc) == 0) {
@@ -364,11 +366,14 @@ qint32 QUsbDevice::open()
                 tmp_id.dClass = desc.bDeviceClass;
             if (tmp_id.dSubClass == 0)
                 tmp_id.dSubClass = desc.bDeviceSubClass;
+            //if(tmp_id.device_address == 0)
+            //    tmp_id.device_address = dev_addr;
 
             // Check all properties match. Defaults have been assigned above.
             if (desc.idProduct == tmp_id.pid && desc.idVendor == tmp_id.vid
                 && bus == tmp_id.bus && port == tmp_id.port
-                && desc.bDeviceClass == tmp_id.dClass && desc.bDeviceSubClass == tmp_id.dSubClass) {
+                && desc.bDeviceClass == tmp_id.dClass && desc.bDeviceSubClass == tmp_id.dSubClass
+                    && daddr == dev_addr) {
                 if (m_log_level >= logInfo)
                     qInfo("Found device");
 
@@ -640,7 +645,7 @@ QUsbDevice::Config &QUsbDevice::Config::operator=(QUsbDevice::Config other)
 /*!
     \brief Default constructor.
 */
-QUsbDevice::Id::Id(quint16 _pid, quint16 _vid, quint8 _bus, quint8 _port, quint8 _class, quint8 _subclass)
+QUsbDevice::Id::Id(quint16 _pid, quint16 _vid, quint8 _bus, quint8 _port, quint8 _class, quint8 _subclass, quint8 _device_address)
 {
     pid = _pid;
     vid = _vid;
@@ -648,6 +653,7 @@ QUsbDevice::Id::Id(quint16 _pid, quint16 _vid, quint8 _bus, quint8 _port, quint8
     port = _port;
     dClass = _class;
     dSubClass = _subclass;
+    device_address = _device_address;
 }
 
 /*!

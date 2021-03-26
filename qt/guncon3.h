@@ -38,6 +38,7 @@ public:
     GUNCON3(QObject *parent = nullptr);
     ~GUNCON3(void);
     void setBus(qint8 b);
+    void setDeviceAddress(quint8 da);
     void setupDevice();
     bool openDevice(void);
     void closeDevice(void);
@@ -69,6 +70,7 @@ private:
     QUsbDevice::Id m_filter;
     QUsbDevice::Config m_config;
     qint8 bus;
+    quint8 device_address;
     quint16 buttons;
     qint16 abs_x,abs_y,abs_z;
     quint8 abs_stickA_y,abs_stickA_x,abs_stickB_x,abs_stickB_y;

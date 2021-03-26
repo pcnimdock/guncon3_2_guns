@@ -273,7 +273,7 @@ void MainWindow::new_read_controller2()
 {
     static bool trigger_ant=1;
     static quint8 wait=125;
-    static bool cambiar_res_juego=1;
+    static bool cambiar_res_juego=0;
     if(calibracion_controller2)
     {
 
@@ -323,7 +323,6 @@ void MainWindow::new_read_controller2()
         stay /=127.0;
         stay -=128/127;
         if(stay>1){stay=1;}
-
         stbx = ((quint8)b.at(2));
         stbx /=127.0;
         stbx -=128/127;
@@ -337,7 +336,7 @@ void MainWindow::new_read_controller2()
         ui->controller2_stickB->setX(stbx);
         ui->controller2_stickB->setY(-1*stby);
         //mandar_cadena_a_stm32(1);
-        gcon_m.set_event(1,x_abs,y_abs);
+        gcon_m.set_event(1,(x_abs*1.0*512)/(w_screen)-256,(y_abs*1.0*512)/(h_screen)-256);
         if(wait>0)
         {wait--;}
         if(gcon_m.controller2.isButtonActive(BTN_A_STICK)&&gcon_m.controller2.isButtonActive(BTN_B_STICK)&&wait==0)

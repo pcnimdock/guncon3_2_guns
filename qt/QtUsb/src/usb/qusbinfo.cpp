@@ -200,6 +200,9 @@ void QUsbInfo::checkDevices()
 QUsbDevice::IdList QUsbInfo::devices()
 {
     QUsbDevice::IdList list;
+    QList<quint8> device_address_list;
+    device_address_list.clear();
+
     ssize_t cnt; // holding number of devices in list
     libusb_device **devs;
     libusb_context *ctx;
@@ -223,6 +226,8 @@ QUsbDevice::IdList QUsbInfo::devices()
             id.vid = desc.idVendor;
             id.bus = libusb_get_bus_number(dev);
             id.port = libusb_get_port_number(dev);
+            id.device_address = libusb_get_device_address(dev);
+            device_address_list.append(id.device_address);
 
             list.append(id);
         }
@@ -230,6 +235,12 @@ QUsbDevice::IdList QUsbInfo::devices()
 
     libusb_free_device_list(devs, 1);
     libusb_exit(ctx);
+    quint8 temp=0;
+    while(temp<device_address_list.size())
+    {
+        list[temp].device_address=device_address_list[temp];
+        temp++;
+    }
     return list;
 }
 

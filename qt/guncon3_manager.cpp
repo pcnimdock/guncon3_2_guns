@@ -22,6 +22,7 @@ void GUNCON3_MANAGER::connect_guncon3_controllers()
     {
         controller1.closeDevice();
         controller1.setBus(lista_guncon3.at(0).bus);
+        controller1.setDeviceAddress(lista_guncon3.at(0).device_address);
         controller1.setupDevice();
         if (controller1.openDevice())
         {
@@ -41,6 +42,7 @@ void GUNCON3_MANAGER::connect_guncon3_controllers()
         {
             controller2.closeDevice();
             controller2.setBus(lista_guncon3.at(1).bus);
+            controller2.setDeviceAddress(lista_guncon3.at(1).device_address);
             controller2.setupDevice();
             if (controller2.openDevice())
             {
@@ -192,6 +194,7 @@ QByteArray GUNCON3_MANAGER::get_guncon2_transform_controller(quint8 controller,q
 void GUNCON3_MANAGER::filtrar_usb_guncon3()
 {
     int num=0;
+    QList<quint8> dev_addr;
     lista_guncon3.clear();
     for(num=0;num<lista_usb.size();num++)
     {
@@ -200,8 +203,15 @@ void GUNCON3_MANAGER::filtrar_usb_guncon3()
             if(lista_usb.at(num).pid==0x0800)
             {
                 lista_guncon3.append(lista_usb.at(num));
+                dev_addr.append(lista_usb.at(num).device_address);
             }
         }
+    }
+    quint8 temp=0;
+    while(temp<dev_addr.size())
+    {
+        lista_guncon3[temp].device_address=dev_addr[temp];
+        temp++;
     }
 }
 

@@ -110,8 +110,8 @@ char Events::init_events_joy(int max,int min,bool cb_4_3)
     libevdev_free(dev);
     if(rc<0)
     {
-        qDebug() << "Error al abrir uinput, put sudo setfacl -m u:usuario:rw /dev/uinput";
-        qCritical( "C Style Critical Error Message, put sudo setfacl -m u:usuario:rw /dev/uinput" );
+        qDebug() << "Error al abrir uinput, put sudo setfacl -m u:$USER:rw /dev/uinput";
+        qCritical( "C Style Critical Error Message, put sudo setfacl -m u:$USER:rw /dev/uinput" );
 
         return(-1);
     }

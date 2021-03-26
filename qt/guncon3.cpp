@@ -57,6 +57,11 @@ void GUNCON3::setBus(qint8 b)
     bus=b;
 }
 
+void GUNCON3::setDeviceAddress(quint8 da)
+{
+    device_address=da;
+}
+
 void GUNCON3::setupDevice()
 {
     /* There are 2 ways of identifying devices depending on the platform.
@@ -72,11 +77,13 @@ void GUNCON3::setupDevice()
     m_filter.pid = 0x0800;
     m_filter.vid = 0x0b9a;
     m_filter.bus = bus;
+    m_filter.device_address = device_address;
 
     //
     m_config.alternate = 0;
     m_config.config = 1;
     m_config.interface = 0;
+
 
 
 
@@ -90,7 +97,7 @@ bool GUNCON3::openDevice()
 {
     qDebug("Opening");
 
-    if (m_usb_dev->open() == QUsbDevice::statusOK) {
+    if (m_usb_dev->open(device_address) == QUsbDevice::statusOK) {
         // Device is open
         return this->openHandle();
     }

@@ -110,7 +110,7 @@ void GUNCON3_MANAGER::set_event(quint8 controller,qint16 x,qint16 y)
         controller2_event.set_button(BTN_DPAD_DOWN,controller2.isButtonActive(BTN_DPAD_DOWN_G3));
         controller2_event.set_button(BTN_DPAD_LEFT,controller2.isButtonActive(BTN_DPAD_LEFT_G3));
         controller2_event.set_button(BTN_DPAD_RIGHT,controller2.isButtonActive(BTN_DPAD_RIGHT_G3));
-        controller1_event.syn_report();
+        controller2_event.syn_report();
 
     }
 
